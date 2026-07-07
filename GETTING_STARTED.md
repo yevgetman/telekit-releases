@@ -1,0 +1,149 @@
+# Getting Started With telekit
+
+This guide is for installing the compiled telekit runtime from the public
+release channel. It does not require access to the private source repository.
+
+telekit connects a Telegram bot you own to an AI coding-agent CLI on your Mac.
+It does not create the Telegram bot for you, and it does not bundle the agent
+CLI. Those are one-time setup steps below.
+
+## 1. Verify The Agent CLI
+
+The bridge answers your Telegram messages by running a real headless agent
+session through the [Claude Code](https://claude.ai/code) CLI. Verify it is
+available:
+
+```sh
+claude --version
+```
+
+If that command is missing, install Claude Code first, then return here. (The
+Codex CLI is supported as an alternative harness — you can switch from inside
+the chat later with `/harness codex`.)
+
+## 2. Install The telekit Runtime
+
+Download these files from the
+[latest release](https://github.com/yevgetman/telekit-releases/releases/latest)
+into one folder:
+
+- `install.sh`
+- `VERSION`
+- `SHA256SUMS`
+- `telekit-runtime-<version>-macos-arm64.tar.gz` (Apple Silicon) **or**
+  `telekit-runtime-<version>-macos-x86_64.tar.gz` (Intel)
+
+Run:
+
+```sh
+sh install.sh
+```
+
+The installer verifies the runtime checksum, installs telekit under
+`~/.telekit-runtime/<version>/`, and links the command to
+`~/.local/bin/telekit`.
+
+If `~/.local/bin` is not on your `PATH`, the installer prints the line to add
+to your shell config.
+
+Verify:
+
+```sh
+telekit --version
+```
+
+## 3. Create Your Bot And Store Its Token
+
+Create a Telegram bot (or reuse one you own):
+
+1. Open Telegram and message [@BotFather](https://t.me/BotFather).
+2. Send `/newbot` and follow the prompts. Copy the HTTP API token.
+
+Store the token in the macOS Keychain:
+
+```sh
+telekit auth set-token
+```
+
+The command uses a hidden prompt. Do not pass the token as a command-line
+argument, and do not put it in files or shell history.
+
+## 4. Claim Yourself As Owner
+
+The bridge answers exactly one person: you. Bind your chat:
+
+```sh
+telekit auth claim
+```
+
+Then send `/claim` to your bot in Telegram. The claim command binds your chat
+id in the Keychain. Check with:
+
+```sh
+telekit status
+```
+
+## 5. Start The Bridge Daemon
+
+```sh
+telekit install
+```
+
+This loads a `launchd` agent that long-polls Telegram in the background and
+starts at login. Logs land in `~/.telekit/bridge.log`.
+
+## 6. Point It At A Working Directory (Optional)
+
+By default the bridge runs its agent sessions in `~/code/me`. To use a
+different directory, set `TELEKIT_WORKING_DIR` before `telekit install`, or
+register additional directories as "nodes" from inside the chat with
+`/node add <name> <dir>` and switch with `/node <name>`.
+
+## 7. Message Your Bot
+
+Send your bot a normal message — the bridge spawns a real agent session in
+your working directory and replies with its answer. Attach photos or documents
+with a caption and the session reads them.
+
+In-chat commands:
+
+- `/help` — command overview
+- `/new` — start a fresh conversation thread
+- `/node` — list/switch the directory your messages route to
+- `/harness` — show or switch the agent CLI (`claude` | `codex`)
+- `/effort` — show or set reasoning effort
+- `/stream` — how much of a running turn is relayed live:
+  `off` (final answer only) | `notes` (sparse progress notes, the default) |
+  `full` (every narration block as its own message, as it happens)
+- `/ping`, `/whoami` — liveness and chat id
+
+## 8. If You Use A Coding Agent Locally
+
+telekit ships an agent skill that teaches a local coding agent (e.g. Claude
+Code) how to send you Telegram messages and operate the bridge:
+
+```sh
+telekit init-skill --target claude-code
+```
+
+## Common Issues
+
+- `telekit: command not found`: add `~/.local/bin` to your `PATH`.
+- `claude: command not found`: install Claude Code and ensure it is on `PATH`.
+- Bot never replies: check `telekit status` (token + owner + daemon), then
+  `~/.telekit/bridge.log`.
+- Keychain prompt fails in a headless shell: unlock your login keychain in a
+  normal macOS session and retry.
+- macOS blocks the binary: `xattr -dr com.apple.quarantine ~/.telekit-runtime`
+  and retry.
+
+## What To Send When Asking For Help
+
+Share command output, not secrets:
+
+```sh
+telekit --version
+telekit status
+```
+
+Do not share your bot token, Keychain items, or `~/.telekit` contents.
