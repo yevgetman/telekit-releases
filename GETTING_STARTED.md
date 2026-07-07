@@ -126,6 +126,16 @@ Code) how to send you Telegram messages and operate the bridge:
 telekit init-skill --target claude-code
 ```
 
+## 9. Staying Up To Date
+
+```sh
+telekit self-update --check    # see whether a newer release exists
+telekit self-update            # fetch, verify, and install it
+```
+
+Upgrades keep your `~/.telekit` state and Keychain intact, and a running
+bridge daemon is restarted onto the new version automatically.
+
 ## Common Issues
 
 - `telekit: command not found`: add `~/.local/bin` to your `PATH`.

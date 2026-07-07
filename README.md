@@ -5,7 +5,7 @@ Public binary release channel for **telekit**.
 This repo ships compiled runtime artifacts and install metadata only. The source
 code lives in the private `yevgetman/telekit` repo.
 
-Current version: **0.2.0** for macOS Apple Silicon (`arm64`) and Intel
+Current version: **0.3.0** for macOS Apple Silicon (`arm64`) and Intel
 (`x86_64`).
 
 Start here: **[`GETTING_STARTED.md`](GETTING_STARTED.md)**.
@@ -52,8 +52,8 @@ folder:
 - `install.sh`
 - `VERSION`
 - `SHA256SUMS`
-- `telekit-runtime-0.2.0-macos-arm64.tar.gz` (Apple Silicon) **or**
-  `telekit-runtime-0.2.0-macos-x86_64.tar.gz` (Intel)
+- `telekit-runtime-0.3.0-macos-arm64.tar.gz` (Apple Silicon) **or**
+  `telekit-runtime-0.3.0-macos-x86_64.tar.gz` (Intel)
 
 Then run:
 
@@ -83,10 +83,21 @@ token, claim your chat, and start the bridge daemon.
 
 ## Upgrading
 
-Download the new release's files and re-run `sh install.sh`. Upgrades never
-touch your `~/.telekit` state or the Keychain — the owner binding, node
-registry, conversation threads, and preferences all survive. If the bridge
-daemon is running, the installer restarts it onto the new version
+From v0.3.0 onward, upgrading is one command:
+
+```sh
+telekit self-update            # fetch + install the latest release
+telekit self-update --check    # just see whether a newer version exists
+```
+
+It downloads the latest release, verifies the checksum, and runs the same
+installer as a fresh install. (On a v0.2.0 install, which predates the
+command, download the new release's files and re-run `sh install.sh` one last
+time.)
+
+Upgrades never touch your `~/.telekit` state or the Keychain — the owner
+binding, node registry, conversation threads, and preferences all survive. If
+the bridge daemon is running, the installer restarts it onto the new version
 automatically.
 
 ## Safety Model
