@@ -5,7 +5,7 @@ Public binary release channel for **telekit**.
 This repo ships compiled runtime artifacts and install metadata only. The source
 code lives in the private `yevgetman/telekit` repo.
 
-Current version: **0.3.0** for macOS Apple Silicon (`arm64`) and Intel
+Current version: **0.13.0** for macOS Apple Silicon (`arm64`) and Intel
 (`x86_64`).
 
 Start here: **[`GETTING_STARTED.md`](GETTING_STARTED.md)**.
@@ -38,8 +38,8 @@ its own Python). It does not include:
 
 - macOS on Apple Silicon (`arm64`) or Intel (`x86_64`)
 - The [Claude Code](https://claude.ai/code) CLI on `PATH` (`claude`) — the
-  bridge animates its agent sessions through it (Codex CLI is supported as an
-  alternative harness)
+  bridge animates its agent sessions through it (Codex, OpenCode, and SOV are
+  supported as alternative harnesses, switchable in-chat with `/harness`)
 - macOS `security` CLI, included with macOS
 - A Telegram account and a bot token from
   [@BotFather](https://t.me/BotFather)
@@ -52,8 +52,8 @@ folder:
 - `install.sh`
 - `VERSION`
 - `SHA256SUMS`
-- `telekit-runtime-0.3.0-macos-arm64.tar.gz` (Apple Silicon) **or**
-  `telekit-runtime-0.3.0-macos-x86_64.tar.gz` (Intel)
+- `telekit-runtime-0.13.0-macos-arm64.tar.gz` (Apple Silicon) **or**
+  `telekit-runtime-0.13.0-macos-x86_64.tar.gz` (Intel)
 
 Then run:
 
