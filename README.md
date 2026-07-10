@@ -5,7 +5,7 @@ Public binary release channel for **telekit**.
 This repo ships compiled runtime artifacts and install metadata only. The source
 code lives in the private `yevgetman/telekit` repo.
 
-Current version: **0.13.0** for macOS Apple Silicon (`arm64`) and Intel
+Current version: **0.14.0** for macOS Apple Silicon (`arm64`) and Intel
 (`x86_64`).
 
 Start here: **[`GETTING_STARTED.md`](GETTING_STARTED.md)**.
@@ -52,8 +52,8 @@ folder:
 - `install.sh`
 - `VERSION`
 - `SHA256SUMS`
-- `telekit-runtime-0.13.0-macos-arm64.tar.gz` (Apple Silicon) **or**
-  `telekit-runtime-0.13.0-macos-x86_64.tar.gz` (Intel)
+- `telekit-runtime-0.14.0-macos-arm64.tar.gz` (Apple Silicon) **or**
+  `telekit-runtime-0.14.0-macos-x86_64.tar.gz` (Intel)
 
 Then run:
 
