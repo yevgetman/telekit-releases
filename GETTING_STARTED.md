@@ -92,14 +92,45 @@ telekit install
 This loads a `launchd` agent that long-polls Telegram in the background and
 starts at login. Logs land in `~/.telekit/bridge.log`.
 
-## 6. Point It At A Working Directory (Optional)
+To restart a running daemon later without reinstalling:
+
+```sh
+telekit restart
+```
+
+## 6. Add A Telegram Passcode (Optional)
+
+By default, the passcode gate is disabled. To require an unlock at the start of
+each Telegram session, set a passcode locally:
+
+```sh
+telekit passcode set
+```
+
+Then unlock in Telegram with:
+
+```sh
+/unlock <your passcode>
+```
+
+The unlock lasts 24 hours. `/new`, `/lock`, a daemon restart, or expiry locks
+the session again. telekit tries to delete the incoming unlock message, but
+Telegram deletion is best-effort; delete it manually if warned.
+
+To disable the gate:
+
+```sh
+telekit passcode clear --yes
+```
+
+## 7. Point It At A Working Directory (Optional)
 
 By default the bridge runs its agent sessions in `~/code/me`. To use a
 different directory, set `TELEKIT_WORKING_DIR` before `telekit install`, or
 register additional directories as "nodes" from inside the chat with
 `/node add <name> <dir>` and switch with `/node <name>`.
 
-## 7. Message Your Bot
+## 8. Message Your Bot
 
 Send your bot a normal message — the bridge spawns a real agent session in
 your working directory and replies with its answer. Attach photos or documents
@@ -109,6 +140,8 @@ In-chat commands:
 
 - `/help` — command overview
 - `/new` — start a fresh conversation thread
+- `/unlock <passcode>` — unlock a protected session
+- `/lock` — lock the current session
 - `/node` — list/switch the directory your messages route to
 - `/harness` — show or switch the agent CLI (`claude` | `codex`)
 - `/effort` — show or set reasoning effort
@@ -117,7 +150,7 @@ In-chat commands:
   `full` (every narration block as its own message, as it happens)
 - `/ping`, `/whoami` — liveness and chat id
 
-## 8. If You Use A Coding Agent Locally
+## 9. If You Use A Coding Agent Locally
 
 telekit ships an agent skill that teaches a local coding agent (e.g. Claude
 Code) how to send you Telegram messages and operate the bridge:
@@ -126,7 +159,7 @@ Code) how to send you Telegram messages and operate the bridge:
 telekit init-skill --target claude-code
 ```
 
-## 9. Staying Up To Date
+## 10. Staying Up To Date
 
 ```sh
 telekit self-update --check    # see whether a newer release exists

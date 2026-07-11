@@ -5,7 +5,7 @@ Public binary release channel for **telekit**.
 This repo ships compiled runtime artifacts and install metadata only. The source
 code lives in the private `yevgetman/telekit` repo.
 
-Current version: **0.15.0** for macOS Apple Silicon (`arm64`) and Intel
+Current version: **0.16.0** for macOS Apple Silicon (`arm64`) and Intel
 (`x86_64`).
 
 Start here: **[`GETTING_STARTED.md`](GETTING_STARTED.md)**.
@@ -52,8 +52,8 @@ folder:
 - `install.sh`
 - `VERSION`
 - `SHA256SUMS`
-- `telekit-runtime-0.15.0-macos-arm64.tar.gz` (Apple Silicon) **or**
-  `telekit-runtime-0.15.0-macos-x86_64.tar.gz` (Intel)
+- `telekit-runtime-0.16.0-macos-arm64.tar.gz` (Apple Silicon) **or**
+  `telekit-runtime-0.16.0-macos-x86_64.tar.gz` (Intel)
 
 Then run:
 
@@ -100,11 +100,20 @@ binding, node registry, conversation threads, and preferences all survive. If
 the bridge daemon is running, the installer restarts it onto the new version
 automatically.
 
+To bounce the daemon without reinstalling, run:
+
+```sh
+telekit restart
+```
+
 ## Safety Model
 
 - The bridge answers **one owner only**: every message from anyone else is
   dropped before any agent session spawns, and only private 1:1 chats from the
   claimed owner are accepted.
+- Optional passcode unlock can require `/unlock <passcode>` at the start of a
+  Telegram session; the incoming unlock message is deleted on a best-effort
+  basis.
 - Outbound sends are guarded behind an explicit `--yes`.
 - Secrets (the bot token, the owner binding) live in the macOS Keychain, never
   in files.
