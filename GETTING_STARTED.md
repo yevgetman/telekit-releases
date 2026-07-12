@@ -17,9 +17,9 @@ available:
 claude --version
 ```
 
-If that command is missing, install Claude Code first, then return here. (The
-Codex CLI is supported as an alternative harness — you can switch from inside
-the chat later with `/harness codex`.)
+If that command is missing, install Claude Code first, then return here. Codex,
+OpenCode, and SOV are supported as alternative harnesses; you can switch from
+inside the chat later with `/harness`.
 
 ## 2. Install The telekit Runtime
 
@@ -143,11 +143,12 @@ In-chat commands:
 - `/unlock <passcode>` — unlock a protected session
 - `/lock` — lock the current session
 - `/node` — list/switch the directory your messages route to
-- `/harness` — show or switch the agent CLI (`claude` | `codex`)
+- `/harness` — show or switch the agent CLI (`claude` | `codex` | `opencode` | `sov`)
 - `/effort` — show or set reasoning effort
 - `/stream` — how much of a running turn is relayed live:
-  `off` (final answer only) | `notes` (sparse progress notes, the default) |
-  `full` (every narration block as its own message, as it happens)
+  `concise` (typing indicator + final answer) | `chatty` (default live stream
+  with tools abstracted) | `comprehensive` (chatty plus reasoning/tool activity)
+  Legacy `off`, `notes`, and `full` are still accepted as aliases.
 - `/ping`, `/whoami` — liveness and chat id
 
 ## 9. If You Use A Coding Agent Locally
