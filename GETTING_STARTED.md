@@ -33,7 +33,19 @@ into one folder:
 - `telekit-runtime-<version>-macos-arm64.tar.gz` (Apple Silicon) **or**
   `telekit-runtime-<version>-macos-x86_64.tar.gz` (Intel)
 
-Run:
+For example, with `curl` (Apple Silicon shown — swap the arch in the tarball name
+for Intel, and set `VER` to the latest version shown on the release page):
+
+```sh
+VER=0.18.2
+BASE=https://github.com/yevgetman/telekit-releases/releases/latest/download
+curl -L -O "$BASE/install.sh" \
+     -O "$BASE/VERSION" \
+     -O "$BASE/SHA256SUMS" \
+     -O "$BASE/telekit-runtime-$VER-macos-arm64.tar.gz"
+```
+
+Then run:
 
 ```sh
 sh install.sh
@@ -123,11 +135,17 @@ To disable the gate:
 telekit passcode clear --yes
 ```
 
-## 7. Point It At A Working Directory (Optional)
+## 7. Point It At A Working Directory (Recommended)
 
-By default the bridge runs its agent sessions in `~/code/me`. To use a
-different directory, set `TELEKIT_WORKING_DIR` before `telekit install`, or
-register additional directories as "nodes" from inside the chat with
+By default the bridge runs its agent sessions in your home directory. To point it
+at a specific project, set `TELEKIT_WORKING_DIR` before `telekit install`:
+
+```sh
+export TELEKIT_WORKING_DIR="$HOME/path/to/your/project"
+telekit install
+```
+
+You can also register additional directories as "nodes" from inside the chat with
 `/node add <name> <dir>` and switch with `/node <name>`.
 
 ## 8. Message Your Bot
