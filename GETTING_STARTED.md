@@ -37,7 +37,7 @@ For example, with `curl` (Apple Silicon shown — swap the arch in the tarball n
 for Intel, and set `VER` to the latest version shown on the release page):
 
 ```sh
-VER=0.18.2
+VER=0.18.3
 BASE=https://github.com/yevgetman/telekit-releases/releases/latest/download
 curl -L -O "$BASE/install.sh" \
      -O "$BASE/VERSION" \
